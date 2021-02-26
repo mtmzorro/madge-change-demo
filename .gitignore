@@ -1,0 +1,5 @@
+ignore-dir/
+node_modules/
+tmp/
+.eslintrc.js
+.history
