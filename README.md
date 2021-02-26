@@ -1,6 +1,11 @@
-## 生成依赖
+## 生成依赖图
 
 ~~~bash
+# 需要先安装 madge 和 Graphviz
+npm install -g madge
+# Mac 下使用 Homebrew 包管理
+brew install graphviz
+
 # 输出依赖
 madge ./src/pages/pageA.js
 # 生成图片
