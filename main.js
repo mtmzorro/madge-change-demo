@@ -8,7 +8,7 @@ const SRC_DIR  = path.resolve(__dirname, 'src')
 /**
  * 获取修改的增量文件列表
  *
- * @return {*} 
+ * @return {String[]} 
  */
 const getChangedList = () => {
     const GIT_DIFF = 'git diff --diff-filter=ACMR --name-only'
@@ -42,7 +42,7 @@ const getEntries = (dirPath) => {
  * 生成依赖树
  *
  * @param {String[]} [entries=[]] 入口 list
- * @return {Object}  {entryPath: depsPath[]}
+ * @return {{entryPath: depsPath[]}} 依赖树
  */
 const generatorDepsTree = async (entries = []) => {
     const options = {
@@ -84,10 +84,17 @@ const generatorDepsTree = async (entries = []) => {
     return depsTree
 }
 
+/**
+ * 获取需要处理的入口文件
+ *
+ * @param {{entryPath: depsPath[]}} depsTree
+ * @param {String[]} changedList
+ * @return {String[]} 文件列表
+ */
 const getNeedBuildEntries = (depsTree, changedList) => {
     const needBuildEntries = []
     for(const key in depsTree){
-        // 将入口文件 自身也加入依赖
+        // 将入口文件 自身也加入待对比列表
         const deps = depsTree[key].concat([key])
         // 依检查依赖文件有变化 则推入待处理入口列表
         if( deps.some(dep => changedList.includes(dep)) ){ 
@@ -95,7 +102,7 @@ const getNeedBuildEntries = (depsTree, changedList) => {
         }
     }
     return needBuildEntries
-  }
+}
 
 async function main () {
     const changedList = getChangedList()
