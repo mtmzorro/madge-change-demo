@@ -69,7 +69,7 @@ const generatorDepsTree = async (entries = []) => {
             }, [])
             // 统一为绝对路径
             .map(filePath => {
-                return path.resolve(__dirname, 'src', filePath)
+                return path.resolve(SRC_DIR, filePath)
             })
         
         return result
