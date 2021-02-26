@@ -93,6 +93,7 @@ const generatorDepsTree = async (entries = []) => {
  */
 const getNeedBuildEntries = (depsTree, changedList) => {
     const needBuildEntries = []
+
     for(const key in depsTree){
         // 将入口文件 自身也加入待对比列表
         const deps = depsTree[key].concat([key])
@@ -101,6 +102,7 @@ const getNeedBuildEntries = (depsTree, changedList) => {
             needBuildEntries.push(key)
         }
     }
+    
     return needBuildEntries
 }
 
